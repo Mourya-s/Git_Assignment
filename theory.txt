@@ -1,0 +1,181 @@
+Title: Git
+1. Version Control Systems (VCS)
+A version control system helps manage multiple versions of the same project without replacing files. It maintains the complete history in a structured, level-by-level manner.
+2. Types of Version Control Systems
+•	Local Version Control Systems
+•	Centralized Version Control Systems
+•	Distributed Version Control Systems
+3. GitHub
+GitHub is like social media for code storage. It allows developers to store, manage, and collaborate on code repositories.
+4. Git Setup
+•	git --version → Check Git version
+•	git config --global user.name "..." → Set username
+•	git config --global user.email "..." → Set email
+•	git config --list → View configured username and email
+5. Git Workflow
+•	mkdir, cd → Directory manipulation
+•	git init → Initialize a repository
+o	Note: Do not use git init for cloned projects
+•	git add . / git add <file_name> → Move files from working directory to staged area
+•	git status → Check file status
+•	git commit -m "..." → Move staged files to commit history
+•	git commit -a -m "..." → Move tracked files directly from working directory to commit history
+•	git log → View commit history (hash codes, SHA algorithm)
+•	git diff → Compare working directory and staged changes
+•	git rm --cached <file_name> → Remove file from commit tracking
+
+
+
+6. Git Status States
+•	U – Untracked
+•	M – Modified
+•	S – Staged
+•	A – Added
+•	C – Committed
+•	Branch Name – Current branch
+7. Undoing Commit Changes
+•	git reset <file.txt> → Removes file from staging
+•	git restore --staged <file.txt> → Clears staged area
+•	git reset --soft HEAD~1 → Undo commit, keep staged changes
+•	git reset --mixed HEAD~1 → Undo commit, keep changes in working directory (default)
+•	git reset --hard HEAD~1 → Completely remove commit and changes
+•	A B C D
+•	Reset B
+•	A  B
+Git Revert
+•	git revert HEAD / <commit_id> → Creates a new commit that undoes changes
+o	Example:
+o	A → B → C → D
+o	(Revert B)
+o	A → B → C → D → E
+E is the undo commit of B
+Amend Commit
+•	git commit --amend -m "..."
+o	Edits the most recent commit without creating a new commit
+o	Hash code of the latest commit changes
+8. Repository Types
+•	Local Repository
+o	Works without internet
+o	Requires git init to track files
+•	Remote Repository
+o	Hosted in the cloud
+o	Enables collaboration
+o	No need for git init (already tracked)
+Remote Commands
+•	git remote add origin <url> → Link local and remote repo
+•	git remote -v → Verify remote connection
+9. Branching
+Branching is like labeling commits.
+•	git branch <branch_name> → Create a branch
+•	git switch <branch_name> → Switch branches
+•	git branch / git branch -a → List branches (q to exit)
+•	git branch -D <branch_name> → Delete branch locally
+•	git push origin --delete <branch_name> → Delete branch remotely
+•	git branch -m master main → Rename master to main
+10. Linking Methods
+•	HTTP → Token-based authentication using username and email
+•	SSH → Uses SSH public key
+11. Git Tagging
+Tags are permanent labels attached to commits.
+•	Lightweight tag: git tag v1.0
+•	Annotated tag: git tag -a v1.0 -m "..."
+•	git push origin v1.0 → Push single tag
+•	git push origin --tags → Push all tags
+12. Git Pull
+Pulls changes from the remote repository.
+•	git fetch
+•	git merge
+•	Note: If a conflict editor opens, press :wq to exit
+•	git checkout <branch> -- <file.txt> → Replace file from another branch
+13. Pull Request (PR)
+Used to review and merge code into main/master.
+•	If no conflicts exist, merge happens automatically
+•	Requires Title, Description, and Comments
+14. Merging
+Combines two branches.
+•	git merge <branch_name> → Merge into current branch
+Merge Conflict
+Occurs when Git finds different changes at the same location (even in comments).
+•	Conflicts must be resolved manually
+15. Git Ignore
+Used to prevent files from being pushed to remote repositories.
+•	Examples: .env, API keys
+Important Notes:
+•	Only untracked files can be ignored
+•	Tracked files must be removed using git rm --cached
+.gitignore Examples
+xyz.txt ,	*.txt ,	*.py,!xyz.p 	,/folder ,	folder/
+•	NOTE: Tracked files cannot be ignored
+16. Rebase
+Rebase applies all commits of a sub-branch onto the latest version of main/master.
+•	Used to keep branch updated with main
+•	Conflicts occur per commit
+Commands
+•	git log --oneline
+•	git rebase origin main/master
+•	git rebase --continue
+•	git rebase --abort
+17. Git Hooks
+Auto-executable scripts that run on Git events.
+•	Located inside the .git directory
+•	Examples: pre-commit, post-commit, pre-push
+•	Written in scripting languages
+18. Git Submodules
+A submodule is a nested repository.
+•	Like using a chapter from another author’s book
+•	Updates are pulled only when required
+Commands
+•	git submodule add <remote_url> <sub_folder>
+•	git submodule update --init --recursive
+•	git submodule update --remote
+Note: Submodule changes must be committed and pushed separately before updating the main repo.
+19. Git Stash
+Temporarily saves uncommitted changes.
+•	Used when changes are incomplete but branch switching is required
+Commands
+•	git stash
+•	git stash list
+•	git stash pop → Apply and delete
+•	git stash apply → Apply only
+•	git stash drop <hash>
+•	git stash pop <hash>
+Stash works as LIFO (Last In, First Out)
+20. Git Cherry-Pick
+Applies a specific commit from another branch.
+•	Used when required commit was reverted
+Commands
+•	git cherry-pick <hash> → Merge and commit
+•	git cherry-pick <hash> -n → Merge only
+•	git cherry-pick --continue → After resolving conflicts
+21. Advanced Concepts
+Git Bisect
+Used to find the commit where a bug was introduced.
+•	Uses binary search (O(log n))
+Commands:
+•	git bisect start
+•	git bisect bad
+•	git bisect good
+•	git bisect reset
+Git Reflog
+Tracks deleted commits and branches.
+•	Temporary storage (depends on garbage collection)
+Commands:
+•	git reflog
+•	git checkout <hash>
+•	git branch <new_branch> <hash>
+Interactive Rebase
+Used to rewrite commit history.
+•	reword → Change commit message
+•	edit → Modify commit
+•	squash → Combine commits
+•	drop → Remove commit
+•	pick → Reorder commits
+Git Fetch
+Checks for remote changes without merging.
+•	git fetch
+•	git fetch origin <branch_name>
+Terminal Commands
+•	:q → Quit
+•	:wq → Save and quit
+•	:q! → Force quit
+
